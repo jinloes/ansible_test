@@ -1,5 +1,6 @@
 ---
 - hosts: local
+  sudo: true
   tasks:
    - name: Install Nginx
      apt: pkg=nginx state=installed update_cache=true
