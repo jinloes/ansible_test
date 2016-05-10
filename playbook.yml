@@ -1,5 +1,5 @@
 ---
-- hosts: local
+- hosts: all
   sudo: true
   tasks:
    - name: Install Nginx
