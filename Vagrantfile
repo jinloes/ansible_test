@@ -10,6 +10,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider :virtualbox do |vb|
     vb.memory = 2048
     vb.cpus = 4
+    vb.customize ['modifyvm', :id, '--nictype1', 'virtio']
   end
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = "v"

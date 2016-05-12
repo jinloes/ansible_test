@@ -2,11 +2,17 @@
 - hosts: all
   sudo: true
   tasks:
-   - name: Install Nginx
-     apt: pkg=nginx state=installed update_cache=true
+   - name: Add jenkins apt-key
+     apt_key: url=https://jenkins-ci.org/debian/jenkins-ci.org.key state=present
+   
+   - name: Add jenkins repo
+     apt_repository: repo='deb http://pkg.jenkins-ci.org/debian-stable binary/' state=present
+
+   - name: Install Jenkins
+     apt: name=jenkins state=latest
      notify:
-      - Start Nginx
+      - Start Jenkins
 
   handlers:
-   - name: Start Nginx
-     service: name=nginx state=started
+   - name: Start Jenkins
+     service: name=jenkins state=started
