@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: jenkins
   become: yes
   tasks:
    - name: Add Repos
@@ -12,6 +12,7 @@
      apt: name={{item}}
      with_items:
        - openjdk-8-jre
+       - git
 
    - name: Add jenkins apt-key
      apt_key: url=https://jenkins-ci.org/debian/jenkins-ci.org.key state=present
