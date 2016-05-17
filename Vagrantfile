@@ -14,10 +14,10 @@ Vagrant.configure(2) do |config|
   end
 
   app_servers = {
-    'jenkins' => {
-      :name => 'jenkins',
+    'utility' => {
+      :name => 'utility',
       :ip => '192.168.10.10',
-      :playbook => 'playbook.yml'
+      :playbook => 'utility/site.yml'
     },
     'database' => {
       :name => 'database',
