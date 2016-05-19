@@ -1,0 +1,20 @@
+---
+- name: Install unzip
+  apt: name=unzip state=latest force=yes
+
+- name: Download consul
+  shell: wget https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_linux_amd64.zip -O /usr/lib/consul.zip
+
+- name: Unzip consul
+  shell: unzip /usr/lib/*.zip -d /usr/lib/
+
+- name: Clean download
+  shell: rm /usr/lib/*.zip
+
+- name: Create the consul service file
+  template: src=consul.conf.j2 dest=/etc/init/consul.conf
+
+- name: reload initctl config
+  shell: initctl reload-configuration
+  notify:
+   - Start Consul

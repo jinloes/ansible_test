@@ -5,3 +5,5 @@
 
   roles:
     - jenkins
+    - aptly
+    - consul

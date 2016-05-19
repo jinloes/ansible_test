@@ -1,0 +1,3 @@
+# consul.conf
+start on filesystem
+exec /usr/lib/consul agent -server -bootstrap -bind=192.168.10.10 -data-dir /tmp/consul

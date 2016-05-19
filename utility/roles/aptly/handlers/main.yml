@@ -1,0 +1,3 @@
+---
+- name: Start Aptly
+  service: name=aptly state=started

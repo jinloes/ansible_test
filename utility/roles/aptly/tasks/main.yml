@@ -1,0 +1,19 @@
+---
+- name: Add Repos
+  apt_repository: repo='{{item}}' state=present
+  with_items:
+   - deb http://repo.aptly.info/ squeeze main
+
+- name: Add Aptly apt-key
+  apt_key: keyserver=keys.gnupg.net id=9E3E53F19C7DE460
+
+- name: Install Aptly
+  apt: name=aptly state=latest force=yes
+
+- name: Create the aptly service file
+  template: src=aptly.conf.j2 dest=/etc/init/aptly.conf
+
+- name: reload initctl config
+  shell: initctl reload-configuration
+  notify:
+   - Start Aptly
