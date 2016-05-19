@@ -16,12 +16,17 @@ Vagrant.configure(2) do |config|
   app_servers = {
     'utility' => {
       :name => 'utility',
-      :ip => '192.168.10.10',
+      :nics => {
+         :ip => '192.168.10.10',
+         :ip2 => '192.168.10.11'
+      },
       :playbook => 'utility/site.yml'
     },
     'database' => {
       :name => 'database',
-      :ip => '192.168.20.10',
+      :nics => {
+        :ip => '192.168.20.10'
+      },
       :playbook => 'database.yml'
     }
   }
@@ -36,7 +41,9 @@ Vagrant.configure(2) do |config|
       }
 
       config.vm.define value[:name] do |app_config|
-        app_config.vm.network "private_network", ip: value[:ip]
+        value[:nics].each do |key, ip|
+          app_config.vm.network "private_network", ip: ip
+        end # value[:nics].each
       end # config.vm.define
 
     end # config.vm.provision

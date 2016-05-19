@@ -1,5 +1,5 @@
 ---
-- name: Install utility services (Jenkins)
+- name: Install utility services (Jenkins, Aptly, Consul)
   hosts: utility
   become: yes
 

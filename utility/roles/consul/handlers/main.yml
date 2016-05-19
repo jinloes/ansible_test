@@ -1,3 +1,5 @@
 ---
 - name: Start Consul
   service: name=consul state=started
+- name: Start Consul UI
+  service: name=consul-ui state=started

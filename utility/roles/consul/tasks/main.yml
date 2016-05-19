@@ -18,3 +18,21 @@
   shell: initctl reload-configuration
   notify:
    - Start Consul
+
+- name: Download consul ui
+  shell: wget https://releases.hashicorp.com/consul/0.6.4/consul_0.6.4_web_ui.zip -O /tmp/consul-ui.zip
+
+- name: Unzip consul ui
+  shell: unzip /tmp/consul-ui.zip -d /opt/consul-ui
+
+- name: Clean consul ui download
+  shell: rm /tmp/consul-ui.zip
+
+- name: Create the consul ui service file
+  template: src=consul-ui.conf.j2 dest=/etc/init/consul-ui.conf
+
+- name: reload initctl config for consul ui
+  shell: initctl reload-configuration
+  notify:
+   - Start Consul UI
+
