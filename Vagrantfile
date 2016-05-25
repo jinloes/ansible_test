@@ -22,19 +22,19 @@ Vagrant.configure(2) do |config|
       },
       :playbook => 'utility/site.yml'
     },
-    'database' => {
-      :name => 'database',
+    'application' => {
+      :name => 'application',
       :nics => {
         :ip => '192.168.20.10'
       },
-      :playbook => 'database.yml'
+      :playbook => 'application/site.yml'
     }
   }
 
   app_servers.each do |key, value|
 
     config.vm.provision "ansible" do |ansible|
-      ansible.verbose = "v"
+      #ansible.verbose = "v"
       ansible.playbook = value[:playbook]
       ansible.extra_vars = {
         mongo_bind_ip: "0.0.0.0"

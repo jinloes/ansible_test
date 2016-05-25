@@ -1,3 +1,6 @@
 ---
-- name: Start Aptly
-  service: name=aptly state=started
+- name: Start Aptly API
+  service: name=aptly-api state=started
+
+- name: Start Aptly Webserver
+  service: name=aptly-ws state=started

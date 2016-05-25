@@ -1,0 +1,16 @@
+---
+- name: Add Repos
+  apt_repository: repo='{{item}}' state=present
+  with_items:
+   - ppa:openjdk-r/ppa
+   - deb http://192.168.10.10:8082 trusty main
+
+- name: Jon Deb Test Dependencies
+  apt: name={{item}}
+  with_items:
+   - openjdk-8-jre
+
+- name: Install Jon Deb test
+  apt: name=jon-deb-test state=latest force=yes
+  notify:
+   - Start Jon Deb Test

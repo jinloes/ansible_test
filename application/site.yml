@@ -1,0 +1,8 @@
+---
+- name: Install database (MongoDB)
+  hosts: application
+  become: yes
+
+  roles:
+    - mongodb
+    - java_app

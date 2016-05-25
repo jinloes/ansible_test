@@ -10,10 +10,29 @@
 - name: Install Aptly
   apt: name=aptly state=latest force=yes
 
-- name: Create the aptly service file
-  template: src=aptly.conf.j2 dest=/etc/init/aptly.conf
+- name: Create the aptly api service file
+  template: src=aptly-api.conf.j2 dest=/etc/init/aptly-api.conf
+
+- name: Create the aptly webserver service file
+  template: src=aptly-ws.conf.j2 dest=/etc/init/aptly-ws.conf
+
+- name: Copy aptly conf file
+  template: src=.aptly.conf.j2 dest=/etc/aptly.conf
+
+- name: Bootstrap aptly repo
+  shell: aptly repo create jon-repo
+
+- name: Copy debian package
+  copy: src=resources/package.deb dest=/tmp/package.deb owner=root group=root
+
+- name: Add debian package
+  shell: aptly repo add jon-repo /tmp/package.deb
+
+- name: Publish aptly repo
+  shell: aptly -architectures="i386,amd64" -distribution="trusty" -skip-signing=true publish repo jon-repo
 
 - name: reload initctl config
   shell: initctl reload-configuration
   notify:
-   - Start Aptly
+   - Start Aptly API
+   - Start Aptly Webserver
